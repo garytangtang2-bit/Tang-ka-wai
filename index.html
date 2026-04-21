@@ -519,15 +519,19 @@
                     </div>
                 </div>
                 
-                <div class="w-48 h-48 bg-white/5 backdrop-blur-sm rounded-3xl p-3 flex flex-col items-center justify-center shrink-0 border border-white/10 relative overflow-hidden group/qr">
-                    <div class="w-full h-full bg-[#050B14] rounded-2xl flex items-center justify-center border border-white/5">
-                        <!-- 替換為實際 QR Code 圖片 -->
-                        <i class="fa-solid fa-qrcode text-6xl text-white/20"></i>
+                <a href="./resume.pdf" target="_blank" class="w-48 h-48 bg-gradient-to-br from-brand-600 to-brand-400 rounded-3xl p-1 flex flex-col shrink-0 relative overflow-hidden group/cv hover:scale-[1.03] transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.2)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] cursor-pointer">
+                    <div class="w-full h-full bg-[#080d1a] rounded-[1.35rem] flex flex-col items-center justify-center relative overflow-hidden">
+                        <div class="absolute top-0 w-full h-1/2 bg-gradient-to-b from-brand-500/20 to-transparent"></div>
+                        <div class="w-16 h-16 rounded-full bg-brand-500/10 flex items-center justify-center mb-3 group-hover/cv:bg-brand-500/20 transition-colors border border-brand-500/20 group-hover/cv:scale-110 duration-300">
+                            <i class="fa-solid fa-file-pdf text-3xl text-brand-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]"></i>
+                        </div>
+                        <span class="text-base text-white font-bold tracking-widest relative z-10">點擊下載</span>
+                        <span class="text-xs text-brand-400 mt-1 font-mono tracking-widest relative z-10 opacity-80 group-hover/cv:opacity-100">RESUME.PDF</span>
+                        
+                        <!-- Hover 掃描光澤效果 -->
+                        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover/cv:animate-[shimmer_1.5s_infinite]"></div>
                     </div>
-                    <div class="absolute inset-0 bg-brand-500/90 flex items-center justify-center opacity-0 group-hover/qr:opacity-100 transition-opacity duration-300 backdrop-blur-md">
-                        <span class="text-sm text-white font-bold text-center tracking-wider px-2">掃描下載<br>詳細履歷 PDF</span>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
