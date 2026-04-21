@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鄧嘉維 Tang Ka Wai | 專業教學與 EdTech 門戶</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#050B14',
+                            card: '#0D1525',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        },
+                        brand: {
+                            400: '#38bdf8', /* Light Blue */
+                            500: '#0ea5e9', /* Primary Blue */
+                            600: '#0284c7', /* Darker Blue */
+                            cyan: '#06b6d4',
+                            purple: '#8b5cf6'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(14, 165, 233, 0.2)' },
+                            '100%': { boxShadow: '0 0 30px rgba(14, 165, 233, 0.6)' }
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; background-color: #050B14; color: #e2e8f0; }
+        
+        .hero-bg {
+            background: radial-gradient(circle at top center, #111827 0%, #050B14 100%);
+            position: relative;
+        }
+        
+        .glass-panel {
+            background: rgba(13, 21, 37, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(5, 11, 20, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 隱藏捲軸但保留捲動功能 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050B14; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- 導覽列 -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <img src="./profile.jpeg" class="w-10 h-10 rounded-xl object-cover mr-3 shadow-lg group-hover:shadow-brand-500/50 transition-all border-2 border-transparent group-hover:border-brand-500/50" alt="Logo">
+                    <span class="font-bold text-xl text-white tracking-widest">TANG KA WAI</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-gray-300 hover:text-white font-medium transition-colors">背景與資歷</a>
+                    <a href="#skills" class="text-gray-300 hover:text-white font-medium transition-colors">核心優勢</a>
+                    <a href="#experience" class="text-gray-300 hover:text-white font-medium transition-colors">實務經驗</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-white font-medium transition-colors">技術演示</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-brand-500/10 border border-brand-500/50 text-brand-400 rounded-full font-bold hover:bg-brand-500 hover:text-white transition-all shadow-[0_0_15px_rgba(14,165,233,0.3)]">聯絡面試</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden glass-panel absolute w-full border-t-0">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">背景與資歷</a>
+                <a href="#skills" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">核心優勢</a>
+                <a href="#experience" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">實務經驗</a>
+                <a href="#portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">技術演示</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄區塊 -->
+    <section class="hero-bg min-h-screen flex items-center pt-20 overflow-hidden relative">
+        <!-- 背景光暈 -->
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-brand-500 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-blob"></div>
+        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-brand-purple rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-blob animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="text-left space-y-8" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full glass-panel text-brand-400 text-sm font-medium tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse mr-2"></span>
+                        STEM 創新與行政數位化
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
+                        以前沿技術與<br>
+                        <span class="text-gradient">數據思維</span><br>
+                        重塑現代教學效能。
+                    </h1>
+                    <p class="text-lg text-gray-400 max-w-xl leading-relaxed font-light">
+                        國立政治大學 (NCCU) 公共行政學系畢業生。我專注於利用 Python 數據分析優化行政流程，並透過數位化交互技術打造直觀的初中數學與科學教材，致力成為具備高度執行力與科技素養的教育工作者。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5 pt-4">
+                        <a href="#portfolio" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-white font-bold hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all text-center group">
+                            <i class="fa-solid fa-code mr-2 group-hover:animate-bounce"></i> 觀看技術演示
+                        </a>
+                        <a href="#contact" class="px-8 py-4 rounded-xl glass-panel text-white font-bold hover:bg-white/10 transition-all text-center">
+                            預約面試 <i class="fa-solid fa-arrow-right ml-2 opacity-70"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex justify-center relative animate-float" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="w-[22rem] h-[30rem] glass-panel rounded-[2rem] p-3 relative group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-brand-purple/20 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative">
+                            <!-- 真實人物背景圖 -->
+                            <img src="./profile.jpeg" alt="Tang Ka Wai Profile" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#050B14] via-[#050B14]/40 to-transparent"></div>
+                            
+                            <div class="absolute bottom-8 left-8 right-8 z-10">
+                                <div class="glass-panel px-4 py-2 rounded-lg inline-block mb-3 border-brand-500/30">
+                                    <span class="text-brand-400 text-xs font-bold tracking-wider">EdTech & Public Admin</span>
+                                </div>
+                                <h3 class="text-white font-bold text-2xl mb-1">鄧嘉維</h3>
+                                <p class="text-gray-400 text-sm">Tang Ka Wai</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 關於我 -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-8 md:p-14 rounded-3xl relative overflow-hidden flex flex-col md:flex-row gap-12 items-center" data-aos="zoom-in-up">
+                
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand-purple/10 rounded-full blur-3xl"></div>
+                
+                <div class="md:w-2/3 space-y-8 z-10">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">具備行政管理思維的<br>科技化教育實踐者</h2>
+                        <div class="w-20 h-1 bg-gradient-to-r from-brand-500 to-brand-purple rounded-full"></div>
+                    </div>
+                    
+                    <p class="text-gray-300 text-lg leading-relaxed font-light">
+                        在政大期間，我成功兼顧了<strong>百人學生組織的領導</strong>與<strong>數位技術的應用學習</strong>。相較於單純的學科教學，我更重視如何透過「數據分析」掌握學生痛點，以及運用公行專業中的「標準化流程」來提升校園行政效能。<br><br>
+                        我深知傳統學校對教學質素與穩健性的重視。因此，我的科技實踐不依賴不可控的黑盒系統，而是聚焦於<strong>實實在在的 Python 數據腳本</strong>和<strong>具備高度視覺邏輯的互動套件</strong>，切實減輕教師負擔並確保教學質量。
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-6 pt-4">
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-500 hover:bg-white/5 transition-colors">
+                            <i class="fa-solid fa-file-shield text-brand-400 text-2xl mb-3"></i>
+                            <h4 class="font-bold text-white text-lg">資歷合規與學歷認證</h4>
+                            <p class="text-sm text-gray-400 mt-2">正辦理 HKCAAVQ 評估，確保學歷符合香港教師資歷要求 (等同 QFs Level 5)。</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-purple hover:bg-white/5 transition-colors">
+                            <i class="fa-solid fa-plane-arrival text-brand-purple text-2xl mb-3"></i>
+                            <h4 class="font-bold text-white text-lg">無縫銜接新學年</h4>
+                            <p class="text-sm text-gray-400 mt-2">將於 2026年6月中旬 畢業後即時返港定居，能全面投入 26/27 學年準備工作。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/3 w-full relative z-10" data-aos="fade-left" data-aos-delay="200">
+                    <div class="bg-gradient-to-b from-brand-500/10 to-transparent p-[1px] rounded-3xl h-full">
+                        <div class="glass-panel p-8 rounded-3xl text-center h-full flex flex-col justify-center">
+                            <div class="w-16 h-16 mx-auto bg-brand-500/20 text-brand-400 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+                                <i class="fa-solid fa-video"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-xl mb-4">面試極具彈性</h3>
+                            <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+                                現處台北，備有 4K 專業視訊與收音設備，隨時可進行高質量的 <strong>Zoom/Teams 遠程面試及試教</strong>。<br><br>
+                                本人亦願意隨時<strong>自費飛返香港</strong>參與實體面試。
+                            </p>
+                            <a href="#contact" class="inline-block w-full py-3 bg-white/10 hover:bg-brand-500 text-white rounded-xl font-bold transition-all border border-white/10 hover:border-brand-400 text-center">
+                                聯絡安排面試
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心優勢 -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">核心競爭優勢</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-500 to-brand-purple mx-auto rounded-full"></div>
+                <p class="mt-5 text-gray-400 max-w-2xl mx-auto text-lg font-light">踏實的數位技能結合嚴謹的行政邏輯，全方位賦能教學現場。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Skill 1 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 hover:border-brand-500/30 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-brand-500/20 text-brand-400 rounded-xl flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.1)]">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">數據分析與自動化腳本</h3>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-400 mt-1 mr-3 text-xs"></i>
+                            <div><strong>Python 數據處理:</strong> 熟練編寫腳本清理及分析學生成績數據，產出視覺化報表，讓教學決策基於客觀數據。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-400 mt-1 mr-3 text-xs"></i>
+                            <div><strong>行政效率提升:</strong> 透過程式碼自動化處理試卷批改統計、出席率追蹤等重複性行政工作，釋放教師備課時間。</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 hover:border-brand-purple/30 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-brand-purple/20 text-brand-purple rounded-xl flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:bg-brand-purple group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.1)]">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">公共行政與管理思維</h3>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-purple mt-1 mr-3 text-xs"></i>
+                            <div><strong>系統性規劃:</strong> 具備公共行政邏輯，擅長建立標準作業流程 (SOP) 與預算編排，確保校園活動與專案合規執行。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-brand-purple mt-1 mr-3 text-xs"></i>
+                            <div><strong>大型組織領導力:</strong> 曾帶領百人學生會，擁有豐富的跨部門溝通、危機處理與課外活動 (ECA) 統籌經驗。</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 hover:border-emerald-500/30 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                        <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">數位化視覺教學設計</h3>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1 mr-3 text-xs"></i>
+                            <div><strong>高階簡報美學:</strong> 精通互動式套件，將艱澀的數學與科學概念轉化為易懂的空間與動態視覺。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1 mr-3 text-xs"></i>
+                            <div><strong>精準考點解構:</strong> 擅長拆解 DSE 題型邏輯，製作條理分明、層次遞進的數位學習講義，照顧不同學習差異。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 實務經驗 -->
+    <section id="experience" class="py-24 relative">
+        <div class="absolute inset-0 bg-[#080d1a] border-y border-white/5"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">經歷與實踐</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-500 to-brand-purple mx-auto rounded-full"></div>
+            </div>
+
+            <div class="relative border-l border-white/10 ml-3 md:ml-0 md:pl-0 space-y-16">
+                
+                <!-- Experience 1 -->
+                <div class="relative pl-8 md:pl-0 group" data-aos="fade-up">
+                    <div class="md:grid md:grid-cols-5 md:gap-8 items-start">
+                        <div class="md:col-span-1 hidden md:block text-right pt-2 md:pr-4">
+                            <span class="text-xs font-bold text-brand-400 tracking-widest uppercase">2024 - 至今</span>
+                        </div>
+                        <div class="md:col-span-4 relative glass-panel p-8 rounded-3xl hover:border-brand-500/40 transition-all duration-300">
+                            <!-- 時間軸點 -->
+                            <div class="w-4 h-4 rounded-full bg-[#050B14] border-2 border-brand-500 absolute -left-[24px] top-4 shadow-[0_0_10px_rgba(14,165,233,0.5)] group-hover:bg-brand-500 transition-all z-10 md:block hidden"></div>
+                            <div class="w-3 h-3 rounded-full bg-brand-500 absolute -left-[38px] top-8 md:hidden"></div>
+                            
+                            <span class="md:hidden inline-block text-xs font-bold text-brand-400 mb-2 font-mono">2024 - 至今</span>
+                            <h3 class="text-2xl font-bold text-white mb-2">數位教材研發與行政腳本開發</h3>
+                            <p class="text-brand-500 text-sm mb-5 font-medium">個人專案研究 (EdTech & Automation)</p>
+                            <ul class="space-y-3 text-gray-400 text-sm leading-relaxed">
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-brand-500 mt-1 mr-3 text-xs"></i><span><strong>數據分析腳本開發：</strong>編寫 Python 程式自動處理並分析學生成績檔案，生成精準的班級錯題分佈表與個人能力雷達圖，將傳統手動彙整時間減少數小時。</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-brand-500 mt-1 mr-3 text-xs"></i><span><strong>互動教材設計：</strong>獨立產出涵蓋基礎幾何與代數的互動簡報，運用動態路徑演示數學證明過程，提升學生的空間認知與邏輯推理能力。</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="relative pl-8 md:pl-0 group" data-aos="fade-up">
+                    <div class="md:grid md:grid-cols-5 md:gap-8 items-start">
+                        <div class="md:col-span-1 hidden md:block text-right pt-2 md:pr-4">
+                            <span class="text-xs font-bold text-brand-purple tracking-widest uppercase">2023 - 2024</span>
+                        </div>
+                        <div class="md:col-span-4 relative glass-panel p-8 rounded-3xl hover:border-brand-purple/40 transition-all duration-300">
+                            <div class="w-4 h-4 rounded-full bg-[#050B14] border-2 border-brand-purple absolute -left-[24px] top-4 shadow-[0_0_10px_rgba(139,92,246,0.5)] group-hover:bg-brand-purple transition-all z-10 md:block hidden"></div>
+                            <div class="w-3 h-3 rounded-full bg-brand-purple absolute -left-[38px] top-8 md:hidden"></div>
+                            
+                            <span class="md:hidden inline-block text-xs font-bold text-brand-purple mb-2 font-mono">2023 - 2024</span>
+                            <h3 class="text-2xl font-bold text-white mb-2">政大港澳同學會 (HKMSA)</h3>
+                            <p class="text-brand-purple text-sm mb-5 font-medium">會長及新生輔導 (President & Mentor)</p>
+                            <ul class="space-y-3 text-gray-400 text-sm leading-relaxed">
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-brand-purple mt-1 mr-3 text-xs"></i><span><strong>組織與專案管理：</strong>領導 15 人內閣運營百人組織，導入數位協作工具管理行政合規檔案與預算收支，實踐公共行政中的資源優化配置。</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-brand-purple mt-1 mr-3 text-xs"></i><span><strong>大型演說經驗：</strong>於「新生座談會」擔任主講人，向逾百名新生及家長解析台灣學制與適應策略，展現穩健的台風與公眾溝通魅力。</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="relative pl-8 md:pl-0 group" data-aos="fade-up">
+                    <div class="md:grid md:grid-cols-5 md:gap-8 items-start">
+                        <div class="md:col-span-1 hidden md:block text-right pt-2 md:pr-4">
+                            <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase">2023 - 至今</span>
+                        </div>
+                        <div class="md:col-span-4 relative glass-panel p-8 rounded-3xl hover:border-emerald-500/40 transition-all duration-300">
+                            <div class="w-4 h-4 rounded-full bg-[#050B14] border-2 border-emerald-500 absolute -left-[24px] top-4 shadow-[0_0_10px_rgba(16,185,129,0.5)] group-hover:bg-emerald-500 transition-all z-10 md:block hidden"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500 absolute -left-[38px] top-8 md:hidden"></div>
+                            
+                            <span class="md:hidden inline-block text-xs font-bold text-emerald-400 mb-2 font-mono">2023 - 至今</span>
+                            <h3 class="text-2xl font-bold text-white mb-2">中學數學及科學教育輔導</h3>
+                            <p class="text-emerald-500 text-sm mb-5 font-medium">私人導師 (STEM & Math Tutor)</p>
+                            <ul class="space-y-3 text-gray-400 text-sm leading-relaxed">
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-emerald-500 mt-1 mr-3 text-xs"></i><span><strong>客製化解題邏輯：</strong>為學生建立結構化的「錯題數據庫」，精準定位 DSE 弱項，透過條理化的解題步驟顯著提升考試成績。</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-angle-right text-emerald-500 mt-1 mr-3 text-xs"></i><span><strong>三語教學能力：</strong>能流暢使用母語粵語、英語（支援 EMI 教學環境）及國語進行授課，適應不同校情需求。</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 技術演示 -->
+    <section id="portfolio" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">數位教學與技術演示</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-500 to-brand-purple mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-lg font-light">踏實的技術產出：從講台上的互動視覺，到後台的數據處理。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Demo 1 -->
+                <div class="glass-panel rounded-3xl overflow-hidden hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-500 group" data-aos="fade-right">
+                    <div class="h-64 relative flex items-center justify-center overflow-hidden bg-black">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Math Geometry" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-screen">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[rgba(13,21,37,1)] to-transparent"></div>
+                        <div class="absolute top-4 left-4 glass-panel px-3 py-1 rounded-lg border-white/10 text-xs font-bold text-white/80">基礎幾何與立體解析</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-3 flex items-center">
+                            互動式數學動畫講義
+                            <span class="ml-auto text-xs bg-brand-500/20 text-brand-400 px-3 py-1 rounded-full border border-brand-500/30">Visual Design</span>
+                        </h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            運用高級動態路徑與圖層蒙版技巧，將抽象的空間幾何與平面證明具象化。有別於傳統靜態死板的投影片，這套設計能一步步引導學生的視覺焦點，有效提升課堂參與度。
+                        </p>
+                        
+                        <!-- 投影片下載區塊 -->
+                        <div class="space-y-3">
+                            <div class="text-xs font-bold text-white/50 tracking-wider">點擊下載原創教學 PPT</div>
+                            <div class="flex flex-wrap gap-2">
+                                <a href="./slides/中一,一元一次方程_editable.pptx" download class="px-3 py-1.5 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 text-gray-300 hover:text-brand-400 text-xs rounded-lg transition-all flex items-center group/btn">
+                                    <i class="fa-solid fa-file-powerpoint mr-2 text-brand-500/70 group-hover/btn:text-brand-400"></i> 中一：一元一次方程
+                                </a>
+                                <a href="./slides/中一,有向數_editable.pptx" download class="px-3 py-1.5 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 text-gray-300 hover:text-brand-400 text-xs rounded-lg transition-all flex items-center group/btn">
+                                    <i class="fa-solid fa-file-powerpoint mr-2 text-brand-500/70 group-hover/btn:text-brand-400"></i> 中一：有向數
+                                </a>
+                                <a href="./slides/中二 因式分解_editable.pptx" download class="px-3 py-1.5 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 text-gray-300 hover:text-brand-400 text-xs rounded-lg transition-all flex items-center group/btn">
+                                    <i class="fa-solid fa-file-powerpoint mr-2 text-brand-500/70 group-hover/btn:text-brand-400"></i> 中二：因式分解
+                                </a>
+                                <a href="./slides/中二 畢氏定理_editable.pptx" download class="px-3 py-1.5 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 text-gray-300 hover:text-brand-400 text-xs rounded-lg transition-all flex items-center group/btn">
+                                    <i class="fa-solid fa-file-powerpoint mr-2 text-brand-500/70 group-hover/btn:text-brand-400"></i> 中二：畢氏定理
+                                </a>
+                                <a href="./slides/中三,三角學初步 (Introduction to Trigonometry)：正弦 (_)、餘弦 (_)、正切 (_)，解直角三角形。_editable.pptx" download class="px-3 py-1.5 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 text-gray-300 hover:text-brand-400 text-xs rounded-lg transition-all flex items-center group/btn">
+                                    <i class="fa-solid fa-file-powerpoint mr-2 text-brand-500/70 group-hover/btn:text-brand-400"></i> 中三：三角學初步
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo 2 -->
+                <div class="glass-panel rounded-3xl overflow-hidden hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] transition-all duration-500 group" data-aos="fade-left" data-aos-delay="100">
+                    <div class="h-64 relative flex items-center justify-center overflow-hidden bg-[#0A0E17]">
+                        <!-- 模擬終端機 -->
+                        <div class="relative z-10 w-5/6 h-4/5 bg-[#05080f] rounded-lg border border-white/10 p-5 shadow-2xl font-mono text-xs overflow-hidden flex flex-col group-hover:scale-105 transition-transform duration-500">
+                            <!-- Terminal Header -->
+                            <div class="flex items-center gap-2 mb-4 pb-2 border-b border-white/5">
+                                <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                                <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                                <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                                <span class="ml-2 text-slate-500 font-sans text-xs">analyze_student_data.py</span>
+                            </div>
+                            <!-- Terminal Body -->
+                            <div class="space-y-2 flex-1">
+                                <div><span class="text-emerald-500">gary@edtech:~$</span> <span class="text-white">python analyze_grades.py --term 1 --class 3A</span></div>
+                                <div class="text-slate-400">[INFO] Loading CSV data from database...</div>
+                                <div class="text-slate-400">[INFO] Cleaning missing values and outliers...</div>
+                                <div><span class="text-brand-400">Processing:</span> <span class="text-white">Calculating standard deviation per question...</span></div>
+                                <div><span class="text-brand-purple">Alert:</span> <span class="text-slate-300">Question 4 geometry theorem success rate &lt; 40%</span></div>
+                                <div class="text-emerald-400 font-bold mt-2">&gt; Success! Generated report: 3A_analytics_report.xlsx</div>
+                                <div class="w-2 h-4 bg-white/50 animate-pulse mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-3 flex items-center">
+                            教學數據自動化腳本
+                            <span class="ml-auto text-xs bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full border border-brand-purple/30">Python Data</span>
+                        </h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            運用 Python (Pandas) 處理繁雜的學生成績檔案。不僅能瞬間計算出各班級的統計數據，更能標記出整班表現較差的特定題型，提供精準的教學校準依據。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡與面試 -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <!-- 網狀背景 -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div data-aos="zoom-in">
+                <h2 class="text-3xl md:text-5xl font-black mb-6 text-white leading-tight">期待為 貴校帶來<br><span class="text-gradient">穩健且創新</span> 的教學動能</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto font-light">
+                    我已備妥完整的經歷證明與認證文件。<br>
+                    <strong>誠摯期待透過遠距視訊，或親身返港進行面試與教學演示。</strong>
+                </p>
+            </div>
+            
+            <div class="glass-panel rounded-[2.5rem] p-8 md:p-14 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] max-w-3xl mx-auto flex flex-col md:flex-row gap-12 items-center relative overflow-hidden group" data-aos="fade-up">
+                <!-- 發光效果 -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full filter blur-[80px] -z-10 group-hover:bg-brand-500/30 transition-colors duration-700"></div>
+                
+                <div class="flex-1 space-y-8 text-left w-full">
+                    <h3 class="text-2xl font-bold text-white border-b border-white/10 pb-4">聯絡方式</h3>
+                    
+                    <div class="space-y-6">
+                        <a href="mailto:garytangtang2@gmail.com" class="flex items-center text-lg hover:bg-white/5 p-3 -ml-3 rounded-2xl transition-all group/item">
+                            <div class="w-12 h-12 glass-panel rounded-xl flex items-center justify-center mr-5 text-brand-400 border border-white/5 group-hover/item:border-brand-500/50 shadow-lg">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span class="text-gray-300 group-hover/item:text-brand-400 transition-colors font-mono text-base">garytangtang2@gmail.com</span>
+                        </a>
+                        
+                        <div class="flex items-center text-lg p-3 -ml-3 rounded-2xl">
+                            <div class="w-12 h-12 glass-panel rounded-xl flex items-center justify-center mr-5 text-brand-purple border border-white/5 shadow-lg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span class="text-gray-300 font-mono text-base">+852 5138 3456</span>
+                        </div>
+                        
+                        <div class="flex items-start text-lg p-3 -ml-3 rounded-2xl">
+                            <div class="w-12 h-12 glass-panel rounded-xl flex items-center justify-center mr-5 text-emerald-400 border border-white/5 shadow-lg shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="pt-1">
+                                <span class="text-gray-300 text-base leading-tight block mb-2">香港天水圍天瑞路88號俊宏軒5座</span>
+                                <span class="text-xs text-brand-400/80 font-normal inline-block px-3 py-1 bg-brand-500/10 border border-brand-500/20 rounded-md">現居台北，2026年6月中旬返港</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-48 h-48 bg-white/5 backdrop-blur-sm rounded-3xl p-3 flex flex-col items-center justify-center shrink-0 border border-white/10 relative overflow-hidden group/qr">
+                    <div class="w-full h-full bg-[#050B14] rounded-2xl flex items-center justify-center border border-white/5">
+                        <!-- 替換為實際 QR Code 圖片 -->
+                        <i class="fa-solid fa-qrcode text-6xl text-white/20"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-brand-500/90 flex items-center justify-center opacity-0 group-hover/qr:opacity-100 transition-opacity duration-300 backdrop-blur-md">
+                        <span class="text-sm text-white font-bold text-center tracking-wider px-2">掃描下載<br>詳細履歷 PDF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="bg-[#03060a] text-gray-600 py-10 text-center text-xs border-t border-white/5 font-mono">
+        <p>&copy; 2026 鄧嘉維 Tang Ka Wai. All rights reserved.</p>
+        <p class="mt-2 text-gray-700">Empowering Education through Python Data Analysis & Digital Material Design.</p>
+    </footer>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // 手機版選單
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuLinks = menu.querySelectorAll('a');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // NavBar 滾動效果
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-xl', 'shadow-black/20');
+                nav.classList.replace('bg-[rgba(5,11,20,0.8)]', 'bg-[rgba(5,11,20,0.95)]');
+            } else {
+                nav.classList.remove('shadow-xl', 'shadow-black/20');
+                nav.classList.replace('bg-[rgba(5,11,20,0.95)]', 'bg-[rgba(5,11,20,0.8)]');
+            }
+        });
+    </script>
+</body>
+</html>
